@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Panel - If-Clauses</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .numbers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 10px;
+            margin-top: 1rem;
+        }
+        .number-tag {
+            background: #e8f0fe;
+            padding: 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            border: 1px solid #1a73e8;
+        }
+        #result-area {
+            text-align: left;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Teacher Panel</h1>
+        <p>Generate a list of numbers to give to your students.</p>
+        
+        <div class="form-group">
+            <label for="student-count">Number of Students:</label>
+            <input type="number" id="student-count" min="2" max="50" step="2" value="20">
+            <small>Please enter an even number for perfect pairs.</small>
+        </div>
+
+        <button id="generate-btn">Generate Number List</button>
+
+        <div id="result-area" class="hidden">
+            <h3>Give these numbers to your students:</h3>
+            <div id="numbers-display" class="numbers-grid"></div>
+            <p style="margin-top: 1.5rem;"><small>Note: These numbers are randomly selected but guaranteed to form complete pairs within any of the 4 sets.</small></p>
+        </div>
+
+        <footer style="margin-top: 2rem;">
+            <a href="index.html" style="color: #1a73e8; text-decoration: none;">Back to Student Page</a>
+        </footer>
+    </div>
+
+    <script>
+        const generateBtn = document.getElementById('generate-btn');
+        const studentCountInput = document.getElementById('student-count');
+        const resultArea = document.getElementById('result-area');
+        const numbersDisplay = document.getElementById('numbers-display');
+
+        // This mapping must match the universalMapping in script.js
+        const universalMapping = [
+            32, 10, 48, 15, 2, 41, 23, 5, 37, 12, 
+            50, 7, 29, 44, 18, 1, 33, 20, 9, 46, 
+            4, 26, 14, 31, 6, 43, 11, 38, 17, 49, 
+            13, 34, 47, 8, 24, 40, 19, 3, 27, 42, 
+            21, 36, 35, 22, 39, 16, 25, 45, 28, 30
+        ];
+
+        generateBtn.addEventListener('click', () => {
+            let count = parseInt(studentCountInput.value);
+            if (isNaN(count) || count < 2) count = 2;
+            if (count > 50) count = 50;
+            if (count % 2 !== 0) count--; // Ensure even
+
+            const pairsCount = count / 2;
+            
+            // There are 25 pairs in total. Each pair X consists of original indices (X*2-1) and (X*2).
+            const allPairs = [];
+            for (let i = 1; i <= 25; i++) {
+                const idA = i * 2 - 1;
+                const idB = i * 2;
+                
+                // Find which student numbers (1-50) map to these original IDs
+                const studentNumA = universalMapping.indexOf(idA) + 1;
+                const studentNumB = universalMapping.indexOf(idB) + 1;
+                allPairs.push([studentNumA, studentNumB]);
+            }
+
+            // Shuffle the 25 pairs and take the first 'pairsCount'
+            const selectedPairs = allPairs.sort(() => Math.random() - 0.5).slice(0, pairsCount);
+            
+            // Flatten and shuffle the selected student numbers
+            const finalNumbers = selectedPairs.flat().sort(() => Math.random() - 0.5);
+
+            numbersDisplay.innerHTML = '';
+            finalNumbers.forEach(num => {
+                const tag = document.createElement('div');
+                tag.className = 'number-tag';
+                tag.textContent = num;
+                numbersDisplay.appendChild(tag);
+            });
+
+            resultArea.classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>

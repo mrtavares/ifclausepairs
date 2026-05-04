@@ -54,22 +54,71 @@ const set2Parts = [
     "Freedom of speech will only be safe", "unless we allow censors to control the truth."
 ];
 
-// Randomized fixed mapping for Set 1
-const set1Mapping = [
+const set3Parts = [
+    "If you study history,", "you will understand the present better.",
+    "The industrial revolution would be impossible", "if steam engines hadn't been invented.",
+    "If citizens exercise their right to vote,", "democracy becomes stronger.",
+    "We could solve many global problems", "if world leaders cooperated more.",
+    "If you respect cultural differences,", "you will make friends from all over the world.",
+    "The environment will recover", "if we reduce plastic waste significantly.",
+    "If the library were open 24/7,", "I would spend all my nights there.",
+    "You will improve your vocabulary", "if you read books in English every day.",
+    "If the internet crashed tomorrow,", "the world would face total chaos.",
+    "We would have more free time", "if robots did all the manual labor.",
+    "If you help someone in need,", "you will feel a great sense of purpose.",
+    "Public health will improve", "if everyone has access to clean water.",
+    "If I were a time traveler,", "I would visit ancient Egypt.",
+    "You will achieve your goals", "if you work hard and stay focused.",
+    "If space exploration were cheaper,", "we would have colonies on Mars.",
+    "The project will be successful", "if we distribute tasks fairly.",
+    "If you practice meditation,", "you will reduce your stress levels.",
+    "Animals will lose their habitats", "if we continue to destroy forests.",
+    "If I spoke ten languages,", "I would work as a UN translator.",
+    "You will find inner peace", "if you learn to forgive others.",
+    "If schools focused more on creativity,", "students would be more motivated.",
+    "The city would be much quieter", "if everyone used electric bicycles.",
+    "If you save money now,", "you will have a better future.",
+    "Communication will be clearer", "if we listen more than we talk.",
+    "If I were the president,", "I would invest more in education."
+];
+
+const set4Parts = [
+    "If you use a strong password,", "your accounts will be more secure.",
+    "Artificial intelligence would be a dream", "if Turing hadn't defined computing.",
+    "If you post something online,", "it will stay there forever.",
+    "We could prevent cyberbullying", "if we taught digital empathy in schools.",
+    "If you follow your passion,", "you will never work a day in your life.",
+    "The smartphone battery will last longer", "if you lower the screen brightness.",
+    "If I were a software engineer,", "I would create helpful apps for everyone.",
+    "You will be more productive", "if you turn off notifications.",
+    "If virtual reality were perfect,", "we wouldn't need to travel for meetings.",
+    "Cybersecurity will become more important", "if more devices connect to the web.",
+    "If you share your knowledge,", "you will help the community grow.",
+    "The video will go viral", "if it has a catchy thumbnail.",
+    "If I could code in Python,", "I would automate all my repetitive tasks.",
+    "You will avoid many scams", "if you never share your private keys.",
+    "If technology continues to evolve,", "our lives will change drastically.",
+    "The server will crash", "if too many users log in at once.",
+    "If you backup your files,", "you won't lose your work if the PC breaks.",
+    "Climate change will accelerate", "if we don't switch to green energy.",
+    "If I were a game developer,", "I would design immersive open worlds.",
+    "You will feel more energized", "if you take breaks from screens.",
+    "If everyone had high-speed internet,", "education would be truly global.",
+    "The app will run smoother", "if you update it to the latest version.",
+    "If you think before you click,", "you will stay safe from phishing.",
+    "Privacy will disappear", "if we don't demand better regulations.",
+    "If I had an unlimited data plan,", "I would stream music all day."
+];
+
+// UNIVERSAL MAPPING: To make the Teacher Panel work for all sets, 
+// we will use the SAME randomized mapping for ALL sets.
+// This way, a pair in Set 1 is the same pair of numbers in Set 2, 3, and 4.
+const universalMapping = [
     32, 10, 48, 15, 2, 41, 23, 5, 37, 12, 
     50, 7, 29, 44, 18, 1, 33, 20, 9, 46, 
     4, 26, 14, 31, 6, 43, 11, 38, 17, 49, 
     13, 34, 47, 8, 24, 40, 19, 3, 27, 42, 
     21, 36, 35, 22, 39, 16, 25, 45, 28, 30
-];
-
-// Randomized fixed mapping for Set 2
-const set2Mapping = [
-    12, 45, 2, 33, 18, 50, 7, 41, 10, 25,
-    4, 37, 22, 1, 48, 15, 30, 9, 44, 29,
-    26, 49, 14, 31, 6, 43, 20, 11, 38, 3,
-    46, 5, 28, 13, 34, 47, 8, 23, 40, 17,
-    32, 27, 42, 21, 36, 35, 24, 39, 16, 19
 ];
 
 const selectionScreen = document.getElementById('selection-screen');
@@ -88,13 +137,15 @@ showBtn.addEventListener('click', () => {
         return;
     }
 
+    const mappedIndex = universalMapping[num - 1] - 1;
     let sentence = "";
-    if (set === 1) {
-        const mappedIndex = set1Mapping[num - 1] - 1;
-        sentence = set1Parts[mappedIndex];
-    } else {
-        const mappedIndex = set2Mapping[num - 1] - 1;
-        sentence = set2Parts[mappedIndex];
+
+    switch(set) {
+        case 1: sentence = set1Parts[mappedIndex]; break;
+        case 2: sentence = set2Parts[mappedIndex]; break;
+        case 3: sentence = set3Parts[mappedIndex]; break;
+        case 4: sentence = set4Parts[mappedIndex]; break;
+        default: sentence = set1Parts[mappedIndex];
     }
 
     sentenceText.textContent = sentence;
