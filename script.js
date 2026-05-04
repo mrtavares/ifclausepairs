@@ -109,7 +109,6 @@ const displayScreen = document.getElementById('display-screen');
 const setSelect = document.getElementById('set-select');
 const numberInput = document.getElementById('number-input');
 const showBtn = document.getElementById('show-btn');
-const backBtn = document.getElementById('back-btn');
 const sentenceText = document.getElementById('sentence-text');
 
 showBtn.addEventListener('click', () => {
@@ -131,13 +130,6 @@ showBtn.addEventListener('click', () => {
     sentenceText.textContent = sentence;
     selectionScreen.classList.add('hidden');
     displayScreen.classList.remove('hidden');
-});
-
-backBtn.addEventListener('click', () => {
-    selectionScreen.classList.remove('hidden');
-    displayScreen.classList.add('hidden');
-    numberInput.value = "";
-    numberInput.focus();
 });
 
 // Allow 'Enter' key to trigger showBtn
