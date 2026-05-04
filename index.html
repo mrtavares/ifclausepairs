@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>If-Clauses Activity</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>If-Clauses Activity</h1>
+        
+        <div id="selection-screen">
+            <p>Choose your set and number as instructed by your teacher.</p>
+            <div class="form-group">
+                <label for="set-select">Choose Set:</label>
+                <select id="set-select">
+                    <option value="1">Set 1</option>
+                    <option value="2">Set 2</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="number-input">Enter Number (1-50):</label>
+                <input type="number" id="number-input" min="1" max="50" placeholder="1-50">
+            </div>
+            <button id="show-btn">Show Sentence</button>
+        </div>
+
+        <div id="display-screen" class="hidden">
+            <div id="sentence-box">
+                <p id="sentence-text"></p>
+            </div>
+            <button id="back-btn">Back</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
