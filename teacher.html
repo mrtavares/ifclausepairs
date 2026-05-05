@@ -41,6 +41,13 @@
         <div id="result-area" class="hidden">
             <h3>Give these numbers to your students:</h3>
             <div id="numbers-display" class="numbers-grid"></div>
+            
+            <div style="margin-top: 3rem; border-top: 2px dashed #ccc; padding-top: 1.5rem;">
+                <h3>Teacher's Key (Matches):</h3>
+                <p><small>Use this to check if students have found their correct partner.</small></p>
+                <div id="pairs-display" class="numbers-grid"></div>
+            </div>
+
             <p style="margin-top: 1.5rem;"><small>Note: These numbers are randomly selected but guaranteed to form complete pairs within any of the 4 sets.</small></p>
         </div>
 
@@ -54,6 +61,7 @@
         const studentCountInput = document.getElementById('student-count');
         const resultArea = document.getElementById('result-area');
         const numbersDisplay = document.getElementById('numbers-display');
+        const pairsDisplay = document.getElementById('pairs-display');
 
         // This mapping must match the universalMapping in script.js
         const universalMapping = [
@@ -87,8 +95,19 @@
             // Shuffle the 25 pairs and take the first 'pairsCount'
             const selectedPairs = allPairs.sort(() => Math.random() - 0.5).slice(0, pairsCount);
             
-            // Flatten and shuffle the selected student numbers
-            const finalNumbers = selectedPairs.flat().sort(() => Math.random() - 0.5);
+            // Display Pairs for Teacher
+            pairsDisplay.innerHTML = '';
+            selectedPairs.forEach(pair => {
+                const tag = document.createElement('div');
+                tag.className = 'number-tag';
+                tag.style.background = '#f1f3f4';
+                tag.style.borderColor = '#5f6368';
+                tag.textContent = `${pair[0]} - ${pair[1]}`;
+                pairsDisplay.appendChild(tag);
+            });
+
+            // Flatten and shuffle the selected student numbers for students
+            const finalNumbers = [...selectedPairs].flat().sort(() => Math.random() - 0.5);
 
             numbersDisplay.innerHTML = '';
             finalNumbers.forEach(num => {
